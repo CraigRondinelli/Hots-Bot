@@ -1,11 +1,11 @@
 #terrible work in progress
 #soon to be discord bot to pull heroes of the storm talent builds from hotslogs.
 
-import urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 def herodata(url):
-	page = urllib2.urlopen(url)
+	page = urlopen(url)
 	
 	soup = BeautifulSoup(page,'lxml')
 	soup.title.string
@@ -17,12 +17,12 @@ def herodata(url):
 		if 'alt' in img.attrs:
 			tags.append(img.attrs['alt'])	
 
-	print soup.title.string
+	print (soup.title.string)
 	for txt in tags:
 		#todo print pretty
-		print txt
+		print (txt)
 
-hero = raw_input('What hero?').lower()
+hero = input('What hero?').lower()
 
 if hero in ['butcher', 'the butcher']:
 	url = 'https://www.hotslogs.com/Sitewide/HeroDetails?Hero=The%20Butcher'
