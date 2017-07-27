@@ -235,7 +235,7 @@ elif hero in ['zul\'jin', 'zuljin']:
 elif hero == 'stukov':
 	url = 'https://www.hotslogs.com/Sitewide/HeroDetails?Hero=Stukov'
 
-else
+else:
 	url = 'empty'
 	
 if 'empty' == url:
