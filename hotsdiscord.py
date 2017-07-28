@@ -1,38 +1,48 @@
 import discord
-from discord.ext.commands import Bot
 from discord.ext import commands
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-Client = discord.Client()
-bot_prefix="?"
-client = commands.Bot(command_prefix = bot_prefix)
+description = 'Heros of the Storm'
+bot = commands.Bot(command_prefix='?', description=description)
 
-@client.event
+@bot.event
 async def on_ready():
-	print ("Bot Online!")
-	print ("Name: {}".format(client.user.name))
-	print ("ID: {}".format(client.user.id))
-	await client.change_presence(game=discord.Game(name='Heroes of the Storm'))
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
 
-@client.event	
-async def on_message(hero):
-	
-	async def herodata(url):
-		page = urlopen(url)
+#Usage: ?hero <name> ie ?hero butcher	
+@bot.command()
+async def hero(string):
+    
+	try:
+		data = herodata(geturl(string))
+	except:
+		await bot.say('Do you even know anything about this game?')
+    
+	try:
+		for txt in data:
+			await bot.say(txt)
+	except:
+		await bot.say('The level of stupidity you have is unmatched.')
 		
-		soup = BeautifulSoup(page,'lxml')
-		popularBuild = soup.find('tr', id='ctl00_MainContent_RadGridPopularTalentBuilds_ctl00__0')
+def herodata(url):
+	page = urlopen(url)
+		
+	soup = BeautifulSoup(page,'lxml')
+	popularBuild = soup.find('tr', id='ctl00_MainContent_RadGridPopularTalentBuilds_ctl00__0')
 	
-		tags = []
-		talents = popularBuild.findAll('img')
-		for img in talents:
-			if 'alt' in img.attrs:
-				tags.append(img.attrs['alt'])	
+	tags = []
+	talents = popularBuild.findAll('img')
+	for img in talents:
+		if 'alt' in img.attrs:
+			tags.append(img.attrs['alt'])	
 	
-		for txt in tags:
-			await client.send_message(hero.channel, txt)
+	return tags	
 
+def geturl(hero):
 	if hero in ['butcher', 'the butcher']:
 		url = 'https://www.hotslogs.com/Sitewide/HeroDetails?Hero=The%20Butcher'
 		
@@ -246,17 +256,7 @@ async def on_message(hero):
 	
 	else:
 		url = 'empty'
-		
-	if 'empty' == url:
-		txt = 'Do you even know what you are looking for?'
-		await client.send_message(hero.channel, txt)
-	
-	else:
-		#todo finish error handling
-		try:
-			herodata(url)
-		except: #catch *all* exceptions
-			txt = 'What did you break?'
-			await client.send_message(hero.channel, txt)
 
-client.run("MzM5MjE1MjM5NTY2NTg5OTUz.DFqjRg.auY7zoNcL2YQHjmNqwv2h-o39X4")
+	return url
+	
+bot.run('MzQwNTg2NDk4NTE4OTQxNjk3.DF0yjA.IX1Lpkn0xe1eaKa-JcI8sd-7N6E')
