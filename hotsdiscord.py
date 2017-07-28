@@ -259,4 +259,4 @@ def geturl(hero):
 
 	return url
 	
-bot.run('MzQwNTg2NDk4NTE4OTQxNjk3.DF0yjA.IX1Lpkn0xe1eaKa-JcI8sd-7N6E')
+bot.run('MzM5MjE1MjM5NTY2NTg5OTUz.DFqjRg.auY7zoNcL2YQHjmNqwv2h-o39X4')
