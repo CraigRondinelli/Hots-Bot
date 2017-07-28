@@ -18,7 +18,7 @@ async def on_ready():
 @client.event	
 async def on_message(hero):
 	
-	def herodata(url):
+	async def herodata(url):
 		page = urlopen(url)
 		
 		soup = BeautifulSoup(page,'lxml')
