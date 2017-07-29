@@ -18,15 +18,11 @@ async def on_ready():
 async def hero(string):
     
 	try:
-		data = herodata(geturl(string))
-	except:
-		await bot.say('Do you even know anything about this game?')
-    
-	try:
+		data = herodata(geturl(string.lower()))
 		for txt in data:
 			await bot.say(txt)
 	except:
-		await bot.say('The level of stupidity you have is unmatched.')
+		await bot.say('Do you even know anything about this game?')
 		
 def herodata(url):
 	page = urlopen(url)
