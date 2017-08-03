@@ -17,12 +17,14 @@ async def on_ready():
 #Usage: ?hero <name> example ?hero butcher
 @bot.command(description='Usage: ?hero <name> example ?hero butcher', pass_context=True)
 async def hero(ctx, name : str, member: discord.Member = None):
+
 	if member is None:
 		member = ctx.message.author
 	try:
 		data = herodata(geturl(name.lower()))
-		for txt in data:
-			await bot.send_message(member, txt)
+		msg = '\n'.join(data)
+		txt = discord.Embed(title=name.title(), description=msg)
+		await bot.send_message(member, embed=txt)
 	except:
 		await bot.send_message(member, 'Do you even know anything about this game?')
 
