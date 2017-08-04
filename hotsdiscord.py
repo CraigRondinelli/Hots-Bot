@@ -183,4 +183,4 @@ def geturl(hero):
 		url = 'empty'
 	return url
 
-bot.run('MzQwNTg2NDk4NTE4OTQxNjk3.DGFRPA.iL9GqLsmSpuUEb7iyjISPFBXk1w')
+bot.run('token')
